@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog App | Stories, Ideas & Insights</title>
+    <meta name="description" content="Discover, read, and write captivating stories and insights on Blog App.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylecss/main.css?v=3.5">
+</head>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="/" class="brand-logo" id="nav-brand-logo">
+                    <span class="brand-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    </span>
+                    <span class="brand-title">Blog App</span>
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="/" class="nav-link active">Home</a></li>
+                    <% if (!locals.isLoggedIn) { %>
+                        <li><a href="/register" class="nav-link">Register</a></li>
+                    <% } %>
+                </ul>
+            </div>
+
+            <div class="nav-right">
+                <!-- Theme Toggle Button -->
+                <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+
+                <% if (locals.isLoggedIn) { %>
+                    <a href="/logout" class="btn-nav-logout" id="nav-btn-logout">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                        Logout
+                    </a>
+                <% } else { %>
+                    <a href="/login" class="btn-nav-login" id="nav-btn-login">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                        Sign In
+                    </a>
+                <% } %>
+
+                <!-- Mobile Hamburger Button -->
+                <button type="button" class="mobile-toggle" id="mobile-menu-btn" aria-label="Toggle menu">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+            <a href="/" class="nav-link active">Home</a>
+            <% if (!locals.isLoggedIn) { %>
+                <a href="/register" class="nav-link">Register</a>
+                <a href="/login" class="nav-link">Sign In</a>
+            <% } else { %>
+                <a href="/logout" class="nav-link" style="color: var(--color-danger);">Logout</a>
+            <% } %>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-card-modern">
+                <div class="hero-content">
+                    <div class="hero-badge-container">
+                        <span class="pulse-dot"></span>
+                        <span>Designed & Developed by Angad</span>
+                    </div>
+
+                    <h1 class="hero-headline">
+                        Craft Stories That <br>
+                        <span class="gradient-text-hero">Echo Across The Web.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Welcome to Blog App. Share your unique thoughts, explore captivating viewpoints, and publish multimedia articles with photos and videos.
+                    </p>
+
+                    <div class="hero-actions-group">
+                        <a href="/new" class="btn-hero-primary" id="hero-cta-write">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            New Post
+                        </a>
+                        <a href="#feed-anchor" class="btn-hero-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            Explore Feed
+                        </a>
+                    </div>
+
+                    <div class="hero-stats-row">
+                        <div class="stat-item">
+                            <span class="stat-num"><%= (locals.posts && locals.posts.length) ? locals.posts.length : 0 %>+</span>
+                            <span class="stat-label">Published Stories</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">Fast</span>
+                            <span class="stat-label">Instant Publishing</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">100%</span>
+                            <span class="stat-label">Free & Open</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Showcase Card -->
+                <div class="hero-showcase">
+                    <div class="floating-preview-card">
+                        <span class="floating-card-badge">✨ Featured Article</span>
+                        <h3 class="floating-card-title">The Art of Mindful Writing in the Digital Era</h3>
+                        <p class="floating-card-excerpt">
+                            Discover how minimalism and deliberate focus can turn simple ideas into transformative prose that resonates deeply with readers.
+                        </p>
+                        <div class="floating-card-author">
+                            <div class="avatar-circle">A</div>
+                            <div class="author-info-text">
+                                <span class="author-info-name">Angad • Blog App</span>
+                                <span class="author-info-sub">Curated • 4 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Topic Chips Bar (Below Hero) -->
+        <div class="topic-chips-bar" id="topic-chips">
+            <button type="button" class="topic-chip active" data-topic="all">🌐 All Topics</button>
+            <button type="button" class="topic-chip" data-topic="technology">💻 Technology</button>
+            <button type="button" class="topic-chip" data-topic="design">🎨 Design</button>
+            <button type="button" class="topic-chip" data-topic="writing">✍️ Writing</button>
+            <button type="button" class="topic-chip" data-topic="code">⚡ AI & Code</button>
+            <button type="button" class="topic-chip" data-topic="ideas">💡 Perspectives</button>
+        </div>
+
+        <!-- Feed Controls: Search, Filters, View Switcher -->
+        <section class="feed-controls-section" id="feed-anchor">
+            <div class="feed-toolbar">
+                <div class="search-wrapper">
+                    <span class="search-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </span>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search stories, topics, or authors...">
+                    <button type="button" class="search-clear-btn" id="clear-search-btn" aria-label="Clear search">✕</button>
+                    <span class="keyboard-search-hint" title="Press / to search">/</span>
+                </div>
+
+                <div class="filter-pills-group">
+                    <button type="button" class="filter-pill active" data-filter="all">All Stories</button>
+                    <button type="button" class="filter-pill" data-filter="media">With Media</button>
+                    <button type="button" class="filter-pill" data-filter="saved">Saved Stories</button>
+                </div>
+
+                <div class="view-switch-group">
+                    <button type="button" class="view-btn active" data-view="grid" title="Grid View">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    </button>
+                    <button type="button" class="view-btn" data-view="list" title="List View">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Posts Section -->
+        <section class="posts-section">
+            <div class="posts-header-bar">
+                <div class="feed-title-wrap">
+                    <h2 class="feed-title">Featured Articles</h2>
+                    <span class="posts-count"><%= locals.posts ? locals.posts.length : 0 %> <%= locals.posts && locals.posts.length === 1 ? 'Story' : 'Stories' %></span>
+                </div>
+
+                <!-- Feed Header Action -->
+                <a href="/new" class="btn-feed-new-post" id="feed-header-write-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>New Post</span>
+                </a>
+            </div>
+
+            <% if (!locals.posts || locals.posts.length === 0) { %>
+                <!-- Empty State -->
+                <div class="empty-feed-card">
+                    <div class="empty-feed-icon">✍️</div>
+                    <h3 class="empty-feed-title">No Stories Published Yet</h3>
+                    <p class="empty-feed-text">
+                        Your canvas is fresh! Be the pioneer and craft your very first article today.
+                    </p>
+                    <a href="/new" class="btn-hero-primary">+ Create New Post</a>
+                </div>
+            <% } else { %>
+                <!-- Posts Feed Grid -->
+                <ul id="postlist">
+                    <% locals.posts.forEach((post, index) => { 
+                        const topics = ['Technology', 'Design', 'Writing', 'AI & Code', 'Ideas'];
+                        const topic = topics[index % topics.length];
+                    %>
+                        <li class="blog-card" data-id="<%= post.id %>" data-topic="<%= topic.toLowerCase() %>">
+                            <!-- Category Pill on Card -->
+                            <span class="card-category-tag"><%= topic %></span>
+
+                            <!-- Card Media (Images and Videos) -->
+                            <% 
+                                const images = locals.parseMediaUrls ? locals.parseMediaUrls(post.image_url) : (post.image_url ? [post.image_url] : []);
+                                const videos = locals.parseMediaUrls ? locals.parseMediaUrls(post.video_url) : (post.video_url ? [post.video_url] : []);
+                                const hasImages = images.length > 0;
+                                const hasVideos = videos.length > 0;
+                            %>
+
+                            <% if (hasImages || hasVideos) { %>
+                                <div class="card-media-stack">
+                                    <% if (hasImages) { %>
+                                        <!-- Post Images Section -->
+                                        <div class="card-media-wrapper card-images-section card-read-trigger" title="Click to view story & images">
+                                            <% if (images.length === 1) { %>
+                                                <div class="card-image-single">
+                                                    <img src="<%= (locals.apiUrl || '') %><%= images[0] %>" alt="<%= post.title %>" class="post-image" loading="lazy">
+                                                </div>
+                                            <% } else if (images.length === 2) { %>
+                                                <div class="card-images-grid grid-2">
+                                                    <% images.forEach((img, iIdx) => { %>
+                                                        <div class="card-image-cell">
+                                                            <img src="<%= (locals.apiUrl || '') %><%= img %>" alt="<%= post.title %> <%= iIdx + 1 %>" class="post-image" loading="lazy">
+                                                        </div>
+                                                    <% }) %>
+                                                </div>
+                                            <% } else { %>
+                                                <div class="card-images-grid grid-multi">
+                                                    <% images.slice(0, 3).forEach((img, iIdx) => { %>
+                                                        <div class="card-image-cell <%= (iIdx === 2 && images.length > 3) ? 'cell-more' : '' %>">
+                                                            <img src="<%= (locals.apiUrl || '') %><%= img %>" alt="<%= post.title %> <%= iIdx + 1 %>" class="post-image" loading="lazy">
+                                                            <% if (iIdx === 2 && images.length > 3) { %>
+                                                                <div class="more-images-overlay">+<%= images.length - 3 %></div>
+                                                            <% } %>
+                                                        </div>
+                                                    <% }) %>
+                                                </div>
+                                            <% } %>
+                                            <% if (images.length > 1) { %>
+                                                <span class="card-photo-badge">🖼️ <%= images.length %> Photos</span>
+                                            <% } %>
+                                        </div>
+                                    <% } %>
+
+                                    <% if (hasVideos) { %>
+                                        <!-- Post Videos Section -->
+                                        <div class="card-media-wrapper card-videos-section">
+                                            <% if (videos.length === 1) { %>
+                                                <div class="card-video-single">
+                                                    <video controls class="post-video" preload="metadata" onclick="event.stopPropagation()">
+                                                        <source src="<%= (locals.apiUrl || '') %><%= videos[0] %>" type="video/mp4">
+                                                        Your browser does not support HTML5 video.
+                                                    </video>
+                                                    <span class="card-video-badge">🎬 Video</span>
+                                                </div>
+                                            <% } else { %>
+                                                <div class="card-videos-grid">
+                                                    <% videos.forEach((vid, vIdx) => { %>
+                                                        <div class="card-video-item">
+                                                            <video controls class="post-video" preload="metadata" onclick="event.stopPropagation()">
+                                                                <source src="<%= (locals.apiUrl || '') %><%= vid %>" type="video/mp4">
+                                                                Your browser does not support HTML5 video.
+                                                            </video>
+                                                            <span class="card-video-badge">🎬 Video <%= vIdx + 1 %></span>
+                                                        </div>
+                                                    <% }) %>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            <% } else { %>
+                                <% 
+                                    const genClasses = ['cover-gen-1', 'cover-gen-2', 'cover-gen-3'];
+                                    const genIcons = ['💡', '🚀', '🔮', '📚', '⚡', '✨'];
+                                    const chosenClass = genClasses[index % genClasses.length];
+                                    const chosenIcon = genIcons[index % genIcons.length];
+                                %>
+                                <div class="card-cover-generative <%= chosenClass %> card-read-trigger">
+                                    <span class="cover-symbol"><%= chosenIcon %></span>
+                                </div>
+                            <% } %>
+
+                            <!-- Quick Floating Action Buttons on Card -->
+                            <div class="card-quick-actions">
+                                <button type="button" class="btn-card-action btn-bookmark" title="Bookmark story" aria-label="Bookmark story">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                                </button>
+                                <button type="button" class="btn-card-action btn-quick-share" title="Share story" aria-label="Share story">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                                </button>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="card-meta-top">
+                                    <span class="card-author-pill">
+                                        <span class="author-avatar-sm">
+                                            <%= (post.author_name || "A").charAt(0).toUpperCase() %>
+                                        </span>
+                                        <span class="author-name"><%= post.author_name || "Author" %></span>
+                                    </span>
+
+                                    <div class="meta-sub-info">
+                                        <% if (post.date) { %>
+                                            <span class="date-badge">
+                                                <%= new Date(post.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) %>
+                                            </span>
+                                        <% } %>
+                                        <span class="read-time-badge">~2 min read</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="card-title card-read-trigger"><%= post.title %></h3>
+
+                                <p class="card-content">
+                                    <%= post.content %>
+                                </p>
+
+                                <!-- Hidden source container for Reader Modal -->
+                                <div class="full-content-source" style="display: none;" 
+                                    data-images='<%- JSON.stringify(images) %>' 
+                                    data-videos='<%- JSON.stringify(videos) %>' 
+                                    data-video="<%= post.video_url || '' %>" 
+                                    data-image="<%= post.image_url || '' %>"><%= post.content %></div>
+
+                                <!-- Card Footer Actions -->
+                                <div class="card-footer">
+                                    <button type="button" class="btn-read-modal">
+                                        <span>Read Story</span>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                    </button>
+
+                                    <div class="card-owner-actions">
+                                        <a href="/edit/<%= post.id %>" class="btn-edit-action" title="Edit story">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                            <span>Edit</span>
+                                        </a>
+
+                                        <form action="/api/posts/delete/<%= post.id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this story?');">
+                                            <button type="submit" class="btn-delete-action" title="Delete story">
+                                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                                <span>Delete</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        </section>
+    </main>
+
+    <!-- Immersive Article Reader Modal -->
+    <div class="reader-modal-overlay" id="reader-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog-container">
+            <!-- Scroll Progress Track -->
+            <div class="reader-progress-track">
+                <div class="reader-progress-bar" id="reader-progress-bar"></div>
+            </div>
+
+            <div class="modal-header-strip">
+                <div class="modal-header-actions">
+                    <button type="button" class="modal-share-btn" id="modal-share-trigger">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        Share Story
+                    </button>
+
+                    <div class="font-size-group" title="Adjust text size">
+                        <button type="button" class="btn-font-size" data-size="sm">A-</button>
+                        <button type="button" class="btn-font-size active" data-size="md">A</button>
+                        <button type="button" class="btn-font-size" data-size="lg">A+</button>
+                    </div>
+                </div>
+                <button type="button" class="modal-close-btn" aria-label="Close reader">✕</button>
+            </div>
+
+            <div class="modal-scrollable-body" id="modal-scroll-area">
+                <h1 class="modal-title"></h1>
+                <div class="modal-meta-row">
+                    <span>By <strong class="modal-author"></strong></span>
+                    <span class="modal-date"></span>
+                    <span class="modal-readtime" style="color: var(--brand-primary); font-weight: 700;"></span>
+                </div>
+
+                <div class="modal-media-container" id="modal-media-wrap" style="display: none;"></div>
+
+                <div class="modal-article-body" id="modal-article-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Partial -->
+    <%- include('footer') %>
+
+    <!-- Client Script -->
+    <script src="/js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= heading %> | Blog App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylecss/main.css?v=3.5">
+</head>
+
+<body>
+    <!-- Navbar Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="/" class="brand-logo">
+                    <span class="brand-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    </span>
+                    <span class="brand-title">Blog App</span>
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="/" class="nav-link">Home</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-right">
+                <a href="/" class="nav-link" style="display: inline-flex; align-items: center; gap: 6px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Back to Feed
+                </a>
+
+                <button type="button" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+
+                <!-- Mobile Hamburger Button -->
+                <button type="button" class="mobile-toggle" id="mobile-menu-btn" aria-label="Toggle menu">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+            <a href="/" class="nav-link">Home Feed</a>
+        </div>
+    </header>
+
+    <main class="editor-layout-wrap">
+        <div class="editor-card">
+            <!-- Header Nav in Editor -->
+            <div class="editor-header-nav">
+                <div class="editor-heading-box">
+                    <h1><%= heading %></h1>
+                    <p>Express your perspectives with elegance, clarity, and impact.</p>
+                </div>
+
+                <div class="editor-tab-switch">
+                    <button type="button" class="editor-tab-btn active" id="tab-write">Write</button>
+                    <button type="button" class="editor-tab-btn" id="tab-preview">Live Preview</button>
+                </div>
+            </div>
+
+            <!-- Formatting Helper Toolbar -->
+            <div class="editor-toolbar">
+                <button type="button" class="format-btn" data-format="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+                <button type="button" class="format-btn" data-format="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+                <button type="button" class="format-btn" data-format="h2" title="Subheading (H2)">H2</button>
+                <button type="button" class="format-btn" data-format="quote" title="Pull Quote">“ Quote</button>
+                <button type="button" class="format-btn" data-format="bullet" title="Bullet List">• List</button>
+                <button type="button" class="format-btn" data-format="code" title="Code Block">&lt;/&gt;</button>
+            </div>
+
+            <!-- Live Preview Tab Content Container -->
+            <div id="editor-preview-view">
+                <h2 class="live-preview-title" id="preview-title">Untitled Story</h2>
+                <div class="live-preview-body" id="preview-body"></div>
+            </div>
+
+            <!-- Main Form Container -->
+            <div id="editor-write-view">
+                <% if (locals.post) { %>
+                    <!-- EDIT EXISTING POST FORM -->
+                    <form id="editform" method="post" action="/api/posts/<%= post.id %>">
+                        <div class="form-field-group">
+                            <label for="title" class="form-label">Story Headline</label>
+                            <input 
+                                type="text" 
+                                id="title" 
+                                name="title" 
+                                class="input-text-modern" 
+                                value="<%= post.title %>" 
+                                placeholder="Give your story a compelling, memorable headline..." 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-field-group">
+                            <label for="content" class="form-label">Story Content (Markdown Supported)</label>
+                            <textarea 
+                                id="content" 
+                                name="content" 
+                                class="textarea-modern" 
+                                placeholder="Write your thoughts, insights, or story here. Use Markdown for bold, headings, and quotes..." 
+                                required
+                            ><%= post.content %></textarea>
+                        </div>
+
+                        <div class="editor-meta-bar">
+                            <div>
+                                <span id="editor-word-count">0 words</span>
+                                <span> • </span>
+                                <span id="editor-read-time">1 min read</span>
+                            </div>
+                            <div class="draft-status-pill" id="draft-status">
+                                <span>●</span>
+                                <span>Draft saved locally</span>
+                            </div>
+                        </div>
+
+                        <div class="editor-actions-row">
+                            <button type="submit" class="btn-submit-post">
+                                <%= submit %>
+                            </button>
+                            <a href="/" class="btn-cancel-post">Cancel</a>
+                        </div>
+                    </form>
+                <% } else { %>
+                    <!-- CREATE NEW POST FORM -->
+                    <form id="newpostform" method="post" action="/api/posts" enctype="multipart/form-data">
+                        <div class="form-field-group">
+                            <label for="title" class="form-label">Story Headline</label>
+                            <input 
+                                type="text" 
+                                id="title" 
+                                name="title" 
+                                class="input-text-modern" 
+                                placeholder="Give your story a compelling, memorable headline..." 
+                                required
+                            >
+                        </div>
+
+                        <!-- Optional Topic Tag Selector -->
+                        <div class="editor-category-selector">
+                            <label class="form-label">Select Primary Topic</label>
+                            <div class="category-chips-row" id="editor-category-chips">
+                                <span class="category-chip-option selected" data-topic="technology">💻 Technology</span>
+                                <span class="category-chip-option" data-topic="design">🎨 Design</span>
+                                <span class="category-chip-option" data-topic="writing">✍️ Writing</span>
+                                <span class="category-chip-option" data-topic="code">⚡ AI & Code</span>
+                                <span class="category-chip-option" data-topic="ideas">💡 Perspectives</span>
+                            </div>
+                        </div>
+
+                        <div class="form-field-group">
+                            <label for="content" class="form-label">Story Content (Markdown Supported)</label>
+                            <textarea 
+                                id="content" 
+                                name="content" 
+                                class="textarea-modern" 
+                                placeholder="Write your thoughts, insights, or story here. Use Markdown for headings, bold, and quotes..." 
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="editor-meta-bar">
+                            <div>
+                                <span id="editor-word-count">0 words</span>
+                                <span> • </span>
+                                <span id="editor-read-time">1 min read</span>
+                            </div>
+                            <div class="draft-status-pill" id="draft-status">
+                                <span>●</span>
+                                <span>Draft auto-saving</span>
+                            </div>
+                        </div>
+
+                        <!-- Media Attachment Dropzones (Images & Videos) -->
+                        <div class="media-upload-grid">
+                            <!-- Image Dropzone -->
+                            <div class="dropzone-container">
+                                <label class="form-label">Story Photos (Optional - Select One or Multiple)</label>
+                                <div class="upload-dropzone" id="image-dropzone">
+                                    <input type="file" id="image" name="image" accept="image/*" multiple>
+                                    <div class="dropzone-icon">🖼️</div>
+                                    <div class="dropzone-title">Click or drop photos</div>
+                                    <div class="dropzone-hint">PNG, JPG, WEBP, GIF (Upload one or multiple)</div>
+                                </div>
+                                <div class="live-preview-box" id="image-preview-container"></div>
+                            </div>
+
+                            <!-- Video Dropzone -->
+                            <div class="dropzone-container">
+                                <label class="form-label">Story Videos (Optional - Select One or Multiple)</label>
+                                <div class="upload-dropzone" id="video-dropzone">
+                                    <input type="file" id="video" name="video" accept="video/*" multiple>
+                                    <div class="dropzone-icon">🎬</div>
+                                    <div class="dropzone-title">Click or drop videos</div>
+                                    <div class="dropzone-hint">MP4, WEBM, MOV, MKV (Upload one or multiple)</div>
+                                </div>
+                                <div class="live-preview-box" id="video-preview-container"></div>
+                            </div>
+                        </div>
+
+                        <div class="editor-actions-row">
+                            <button type="submit" class="btn-submit-post">
+                                <%= submit %>
+                            </button>
+                            <a href="/" class="btn-cancel-post">Cancel</a>
+                        </div>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Partial -->
+    <%- include('footer') %>
+
+    <!-- Client Script -->
+    <script src="/js/app.js"></script>
+</body>
+
+</html>
