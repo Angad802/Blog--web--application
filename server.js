@@ -6,9 +6,17 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import multer from "multer";
 import path from "path";
+import fs from "fs";
+
 
 const app = express();
 const port = process.env.PORT;
+
+const uploadDir = "upload";
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
