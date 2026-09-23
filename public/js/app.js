@@ -12,43 +12,10 @@
     // 1. THEME MANAGER (Dark & Light Modes)
     // -------------------------------------------------------------
     const initTheme = () => {
-        const savedTheme = localStorage.getItem('blog_theme');
-        // Default to professional white / light theme
-        const activeTheme = savedTheme || 'light';
-
-        document.documentElement.setAttribute('data-theme', activeTheme);
-        updateThemeToggleIcons(activeTheme);
-
-        document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const current = document.documentElement.getAttribute('data-theme') || 'light';
-                const nextTheme = current === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', nextTheme);
-                localStorage.setItem('blog_theme', nextTheme);
-                updateThemeToggleIcons(nextTheme);
-                showToast(`Switched to ${nextTheme === 'dark' ? '🌙 Dark' : '☀️ Light'} mode`, 'info');
-            });
-        });
-    };
-
-    const updateThemeToggleIcons = (theme) => {
-        document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
-            const sunIcon = btn.querySelector('.sun-icon');
-            const moonIcon = btn.querySelector('.moon-icon');
-            if (sunIcon && moonIcon) {
-                if (theme === 'dark') {
-                    sunIcon.style.display = 'block';
-                    moonIcon.style.display = 'none';
-                    btn.setAttribute('aria-label', 'Switch to light mode');
-                    btn.setAttribute('title', 'Switch to light mode');
-                } else {
-                    sunIcon.style.display = 'none';
-                    moonIcon.style.display = 'block';
-                    btn.setAttribute('aria-label', 'Switch to dark mode');
-                    btn.setAttribute('title', 'Switch to dark mode');
-                }
-            }
-        });
+        try {
+            localStorage.removeItem('blog_theme');
+            document.documentElement.setAttribute('data-theme', 'light');
+        } catch (e) { }
     };
 
     // -------------------------------------------------------------

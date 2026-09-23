@@ -57,9 +57,8 @@
     --transition-slow: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ------------------ LIGHT THEME (WARM CREAM + DARK NAVY) ------------------ */
-:root,
-html[data-theme="light"] {
+/* ------------------ THEME TOKENS (WARM CREAM + DARK NAVY + ROYAL COBALT) ------------------ */
+:root {
     --bg-canvas: #faf8f5;
     --bg-mesh: 
         radial-gradient(ellipse 900px 500px at 15% -50px, rgba(37, 99, 235, 0.06) 0%, transparent 70%),
@@ -87,38 +86,6 @@ html[data-theme="light"] {
 
     --card-category-bg: #0a1126;
     --card-category-color: #93c5fd;
-}
-
-/* ------------------ DARK THEME (DEEP OBSIDIAN NAVY + WARM CREAM) ------------------ */
-html[data-theme="dark"] {
-    --bg-canvas: #060b18;
-    --bg-mesh: 
-        radial-gradient(circle 800px at 15% 10%, rgba(37, 99, 235, 0.18) 0%, transparent 70%),
-        radial-gradient(circle 700px at 85% 20%, rgba(10, 17, 38, 0.5) 0%, transparent 70%),
-        radial-gradient(circle 600px at 50% 90%, rgba(6, 182, 212, 0.12) 0%, transparent 70%),
-        #060b18;
-    --surface: #0b1329;
-    --surface-elevated: #101c3c;
-    --surface-glass: rgba(11, 19, 41, 0.9);
-    --surface-muted: #15244c;
-
-    --border-subtle: rgba(250, 245, 237, 0.07);
-    --border-medium: rgba(250, 245, 237, 0.14);
-    --border-card: rgba(250, 245, 237, 0.08);
-
-    --text-primary: #faf5ed;      /* Warm Cream */
-    --text-secondary: #cbd5e1;    /* Soft Light Slate */
-    --text-muted: #94a3b8;
-
-    --navbar-bg: rgba(6, 11, 24, 0.92);
-    --navbar-border: rgba(250, 245, 237, 0.08);
-
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
-    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.45);
-    --shadow-card-hover: 0 22px 42px -8px rgba(37, 99, 235, 0.3), 0 6px 16px rgba(0, 0, 0, 0.6);
-
-    --card-category-bg: #2563eb;
-    --card-category-color: #ffffff;
 }
 
 /* --------------------------------------------------------------------------
@@ -284,25 +251,7 @@ img, video {
     gap: 12px;
 }
 
-.theme-toggle-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--border-medium);
-    background: var(--surface);
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
 
-.theme-toggle-btn:hover {
-    border-color: var(--cobalt-primary);
-    color: var(--cobalt-primary);
-    transform: scale(1.05);
-}
 
 /* User Badge */
 .nav-user-badge {
@@ -509,14 +458,8 @@ img, video {
     margin-bottom: 18px;
 }
 
-html[data-theme="light"] .gradient-text-hero {
+.gradient-text-hero {
     background: linear-gradient(135deg, #0a1126 30%, #2563eb 80%, #06b6d4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-html[data-theme="dark"] .gradient-text-hero {
-    background: linear-gradient(135deg, #faf5ed 20%, #93c5fd 60%, #38bdf8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -1055,10 +998,7 @@ html[data-theme="dark"] .gradient-text-hero {
     transition: all 0.2s ease;
 }
 
-html[data-theme="dark"] .btn-card-action {
-    background: rgba(11, 19, 41, 0.9);
-    color: var(--cream-text);
-}
+
 
 .btn-card-action:hover {
     transform: scale(1.08);
