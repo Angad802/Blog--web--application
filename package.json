@@ -7,6 +7,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -20,6 +22,9 @@
     "form-data": "^4.0.6",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.3.0",
+    "passport": "^0.7.0",
+    "passport-github2": "^0.1.12",
+    "passport-google-oauth20": "^2.0.0",
     "pg": "^8.23.0"
   }
 }
